@@ -1,0 +1,45 @@
+plugins {
+  id 'java'
+  id 'war'
+}
+
+group 'edu.iuh'
+version '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+dependencies {
+  compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
+
+  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+  // Jakarta EE 10
+  compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+
+  // MariaDB JDBC
+  implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.7'
+
+  // JSTL
+  implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
+  implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+  // CDI cho Tomcat
+  implementation 'org.jboss.weld.servlet:weld-servlet-shaded:5.1.4.Final'
+
+}
+
+test {
+useJUnitPlatform()}
